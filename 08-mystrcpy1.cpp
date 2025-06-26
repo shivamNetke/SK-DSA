@@ -2,21 +2,19 @@
 #include <string.h>
 using namespace std;
 
-char *mystrcpy(char *dest, const char *src)
-{
+char *mystrcpy(char *dest, const char *src) {
   int i = 0;
-  while (src[i] != '\0')
-  {
+  while (src[i] != '\0') {
     dest[i] = src[i];
     i++;
   }
 
   dest[i] = '\0';
+
   return dest;
 }
 
-int main()
-{
+int main() {
   char str1[20] = "HelloWorld";
   char str2[20] = {0};
 
