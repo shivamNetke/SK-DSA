@@ -29,6 +29,7 @@ void DeleteAtPosition(Node *&head, int pos) {
     struct Node *temp = head;
     head = head->next;
     free(temp);
+    temp = NULL;
     return;
   }
 
