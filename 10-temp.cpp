@@ -1,16 +1,14 @@
 // 01 Singly Linked List
 
-#include <stdio.h>
 #include <malloc.h>
+#include <stdio.h>
 
-struct Node
-{
+struct Node {
   int data;
   struct Node *next;
 };
 
-struct Node *CreateNode(int data)
-{
+struct Node *CreateNode(int data) {
   struct Node *newNode = (struct Node *)malloc(sizeof(struct Node));
   newNode->data = data;
   newNode->next = NULL;
@@ -18,19 +16,16 @@ struct Node *CreateNode(int data)
   return newNode;
 }
 
-void PrintSinglyLL(struct Node *head)
-{
+void PrintSinglyLL(struct Node *head) {
   struct Node *current = head;
 
-  while (current != NULL)
-  {
+  while (current != NULL) {
     printf("data = %d\n", current->data);
     current = current->next;
   }
 }
 
-struct Node *InsertAtBeginning(struct Node *head, int data)
-{
+struct Node *InsertAtBeginning(struct Node *head, int data) {
   struct Node *newNode = (struct Node *)malloc(sizeof(struct Node));
   newNode->data = data;
   newNode->next = head;
@@ -38,8 +33,7 @@ struct Node *InsertAtBeginning(struct Node *head, int data)
   return newNode;
 }
 
-struct Node *DeleteAtBeginning(struct Node *head)
-{
+struct Node *DeleteAtBeginning(struct Node *head) {
   struct Node *tempNode = head;
   head = head->next;
 
@@ -49,11 +43,9 @@ struct Node *DeleteAtBeginning(struct Node *head)
   return head;
 }
 
-void InsertAtEnd(struct Node *head, int data)
-{
+void InsertAtEnd(struct Node *head, int data) {
   struct Node *current = head;
-  while (current->next != NULL)
-  {
+  while (current->next != NULL) {
     current = current->next;
   }
 
@@ -64,11 +56,9 @@ void InsertAtEnd(struct Node *head, int data)
   current->next = newNode;
 }
 
-void DeleteAtEnd(struct Node *head)
-{
+void DeleteAtEnd(struct Node *head) {
   struct Node *current = head;
-  while (current->next->next != NULL)
-  {
+  while (current->next->next != NULL) {
     current = current->next;
   }
 
@@ -79,14 +69,11 @@ void DeleteAtEnd(struct Node *head)
   current->next = 0;
 }
 
-void SearchData(struct Node *head, int data)
-{
+void SearchData(struct Node *head, int data) {
   struct Node *current = head;
 
-  while (current != NULL)
-  {
-    if (current->data == data)
-    {
+  while (current != NULL) {
+    if (current->data == data) {
       printf("Data %d Found\n", data);
       return;
     }
@@ -97,12 +84,10 @@ void SearchData(struct Node *head, int data)
   printf("Data %d Not Found\n", data);
 }
 
-void InsertAtPosition(struct Node *head, int data, int pos)
-{
+void InsertAtPosition(struct Node *head, int data, int pos) {
   struct Node *current = head;
 
-  for (int iCnt = 1; iCnt < pos - 1; iCnt++)
-  {
+  for (int iCnt = 1; iCnt < pos - 1; iCnt++) {
     current = current->next;
   }
 
@@ -113,19 +98,16 @@ void InsertAtPosition(struct Node *head, int data, int pos)
   current->next = newNode;
 }
 
-void DeleteNodeAtData(struct Node *head,int data)
-{
+void DeleteNodeAtData(struct Node *head, int data) {
   struct Node *current = head;
-  
-  while(current->next->data != data)
-  {
+
+  while (current->next->data != data) {
     current = current->next;
   }
 
-  if(current == NULL)
-  {
+  if (current == NULL) {
     printf("Data Not Found\n");
-    return ;
+    return;
   }
 
   struct Node *temp = current->next;
@@ -133,11 +115,9 @@ void DeleteNodeAtData(struct Node *head,int data)
 
   free(temp);
   temp = NULL;
-
 }
 
-int main()
-{
+int main() {
   // Stack
   /*
   struct Node temp;
@@ -159,17 +139,19 @@ int main()
 
   struct Node *head = CreateNode(10);
   printf("head data = %d\n", head->data); // 10
+
   printf("head next = %p\n", head->next); // 0
 
   head->next = CreateNode(20);
 
-  printf("head->next = %p\n", head->next);             // address of 20 data node
+  printf("head->next = %p\n", head->next); // address of 20 data node
   printf("head->next->data = %d\n", head->next->data); // 20
   printf("head->next->next = %p\n", head->next->next); // 0
 
   head->next->next = CreateNode(30);
 
-  printf("head->next->next = %p\n", head->next->next);             // address of 30 data node
+  printf("head->next->next = %p\n",
+         head->next->next); // address of 30 data node
   printf("head->next->next->data = %d\n", head->next->next->data); // 30
   printf("head->next->next->next = %p\n", head->next->next->next); // 0
 

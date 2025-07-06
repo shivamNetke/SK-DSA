@@ -10,7 +10,7 @@ char *mystrcpy(char *dest, const char *src) {
   }
 
   dest[i] = '\0';
-
+   
   return dest;
 }
 
