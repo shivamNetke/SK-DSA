@@ -1,44 +1,46 @@
 #include <iostream>
 #include <malloc.h>
+
 using namespace std;
 
 struct Stack {
-  int top;
   int cap;
-  int *arrPtr;
+  int top;
+  int *arrptr;
 };
 
+// create stack function
+
 struct Stack *createStack(int cap) {
-    if (cap == 0)
-  {
-    cout << "\ncapacity is 0/null\n" << endl;
-    return NULL;
-  }
+    if(0 == cap)
+    {
+        cout<<endl << "cap is NULL" << endl;
+        return NULL;
+    }
 
-  struct Stack *newStack = (struct Stack *)malloc(sizeof(struct Stack));
+    struct Stack *newStackPtr = (struct Stack *)malloc(sizeof(struct Stack));
 
-  if (newStack == NULL)
-  {
-    cout << "\newstack memory allocation failed\n" << endl;
+    if(NULL == newStackPtr)
+    {
+        cout << "memory allocation failed for newStackPtr" << endl;
+        return NULL;
+    }
 
-    return NULL;
-  }
+    newStackPtr->cap = cap;
+    newStackPtr->top = -1;
+    newStackPtr->arrptr = (int *)malloc(sizeof(int)*cap);
 
-  newStack->cap = cap;
-  newStack->top = -1;
-  newStack->arrPtr = (int *)malloc(sizeof(int) * cap);
+    if(NULL == newStackPtr->arrptr)
+    {
+        cout << "memory allocation failed for arrptr" << endl;
+    }
 
-    if (newStack->arrPtr == NULL)
-  {
-    cout << "\newstack array memory allocation failed\n" << endl;
-    return NULL;
-  }
+    return newStackPtr;
 
-  return newStack;
 }
 
-
 int main() {
-  struct Stack *stack = createStack(10);
+  struct Stack *firstStackPtr = createStack(5);
+
   return 0;
 }
