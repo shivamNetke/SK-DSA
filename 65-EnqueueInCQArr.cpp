@@ -90,6 +90,12 @@ int main() {
   struct Queue *firstQueue = CreateQueue(5);
 
   enqueue(firstQueue, 10);
+  enqueue(firstQueue, 10);
+  enqueue(firstQueue, 10);
+  enqueue(firstQueue, 10);
+  enqueue(firstQueue, 10);
+  isFull(firstQueue);
+
 
 
   return 0;
