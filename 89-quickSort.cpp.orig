@@ -1,0 +1,445 @@
+#include <iostream>
+using namespace std;
+
+void printArray(int arr[], int size) {
+  cout << " in print array" << endl;
+  cout << " ";
+  for (int i = 0; i < size; i++) {
+    cout << arr[i] << " ";
+  }
+  cout << endl;
+
+  cout << " out print array" << endl;
+}
+
+void swap(int *a, int *b) {
+  cout << " in swap" << endl;
+  cout << " " << *a << " " << *b << endl;
+  int temp = *a;
+  *a = *b;
+  *b = temp;
+  cout << " out swap" << endl;
+}
+
+int partition(int arr[], int start, int end, int size) {
+  cout << " in partition" << endl;
+  int pivot = arr[end];
+  int i = (start - 1);
+
+  for (int j = start; j < end; j++) {
+    if (arr[j] < pivot) {
+      cout << " in partition if condition  // if (arr[j] < pivot)" << endl;
+      i++;
+      cout << " arr[j] = " << arr[j] << " arr[i] = " << arr[i]
+           << " pivot = " << pivot << endl;
+      swap(&arr[i], &arr[j]);
+      printArray(arr, size);
+      cout << " out partition if condition" << endl;
+    }
+  }
+  swap(&arr[i + 1], &arr[end]);
+  printArray(arr, size);
+  cout << " out partition" << endl;
+  // printArray(arr, size);
+  return (i + 1);
+}
+
+void quickSort(int arr[], int start, int end, int size) {
+  cout << "\n in quicksort" << endl;
+  cout << " start = " << start << " end = " << end << endl;
+  printArray(arr, size);
+  if (start < end) {
+    cout << "                                                                  "
+            "                           in quicksort if condition // if (start "
+            "< end)"
+         << endl;
+    cout << " start = " << start << " end = " << end << endl;
+
+    int pivot = partition(arr, start, end, size);
+
+    quickSort(arr, start, pivot - 1, size);
+    quickSort(arr, pivot + 1, end, size);
+    cout << " out quicksort if condition" << endl;
+  }
+  cout << " out quicksort" << endl;
+}
+
+int main() {
+  int arr[] = {10, 7, 8, 9, 1, 5};
+  int size = sizeof(arr) / sizeof(arr[0]);
+
+  cout << "\n original array\n" << endl;
+  printArray(arr, size);
+
+  quickSort(arr, 0, size - 1, size);
+
+  cout << "\n sorted array \n" << endl;
+  printArray(arr, size);
+
+  return 0;
+}
+
+/*
+ original array
+
+ in print array
+ 10 7 8 9 1 5
+ out print array
+
+ in quicksort
+ start = 0 end = 5
+ in print array
+ 10 7 8 9 1 5
+ out print array
+ in quicksort if condition // if (start < end)
+ start = 0 end = 5
+ in partition
+ in partition if condition  // if (arr[j] < pivot)
+ arr[j] = 1 arr[i] = 10 pivot = 5
+ in swap
+ 10 1
+ out swap
+ in print array
+ 1 7 8 9 10 5
+ out print array
+ out partition if condition
+ in swap
+ 7 5
+ out swap
+ in print array
+ 1 5 8 9 10 7
+ out print array
+ out partition
+
+ in quicksort
+ start = 0 end = 0
+ in print array
+ 1 5 8 9 10 7
+ out print array
+ out quicksort
+
+ in quicksort
+ start = 2 end = 5
+ in print array
+ 1 5 8 9 10 7
+ out print array
+ in quicksort if condition // if (start < end)
+ start = 2 end = 5
+ in partition
+ in swap
+ 8 7
+ out swap
+ in print array
+ 1 5 7 9 10 8
+ out print array
+ out partition
+
+ in quicksort
+ start = 2 end = 1
+ in print array
+ 1 5 7 9 10 8
+ out print array
+ out quicksort
+
+ in quicksort
+ start = 3 end = 5
+ in print array
+ 1 5 7 9 10 8
+ out print array
+ in quicksort if condition // if (start < end)
+ start = 3 end = 5
+ in partition
+ in swap
+ 9 8
+ out swap
+ in print array
+ 1 5 7 8 10 9
+ out print array
+ out partition
+
+ in quicksort
+ start = 3 end = 2
+ in print array
+ 1 5 7 8 10 9
+ out print array
+ out quicksort
+
+ in quicksort
+ start = 4 end = 5
+ in print array
+ 1 5 7 8 10 9
+ out print array
+ in quicksort if condition // if (start < end)
+ start = 4 end = 5
+ in partition
+ in swap
+ 10 9
+ out swap
+ in print array
+ 1 5 7 8 9 10
+ out print array
+ out partition
+
+ in quicksort
+ start = 4 end = 3
+ in print array
+ 1 5 7 8 9 10
+ out print array
+ out quicksort
+
+ in quicksort
+ start = 5 end = 5
+ in print array
+ 1 5 7 8 9 10
+ out print array
+ out quicksort
+ out quicksort if condition
+ out quicksort
+ out quicksort if condition
+ out quicksort
+ out quicksort if condition
+ out quicksort
+ out quicksort if condition
+ out quicksort
+
+ sorted array
+
+ in print array
+ 1 5 7 8 9 10
+ out print array
+*/
+/*
+# Quicksort — step-by-step (for your code)
+
+**Goal:** Visualize how your quickSort + partition works on the array `{10, 7,
+8, 9, 1, 5}`. Follow the pointers `i`, `j`, and the chosen `pivot` (last
+element).
+
+---
+
+## Legend
+
+* `pivot` = element chosen as pivot (your code uses `arr[end]`).
+* `i` = index of last element known to be < pivot (initialized to `start-1`).
+* `j` = scanning index that checks `arr[j]` against `pivot`.
+* `swap(a,b)` = swap elements at positions `a` and `b`.
+* Boxes show array state; bolded indices show elements being compared/swapped.
+
+---
+
+## Initial array (indices shown)
+
+```
+Index:  0  1  2  3  4  5
+Array: [10, 7, 8, 9, 1, 5]
+```
+
+---
+
+## Step 1 — First call: `quickSort(arr, 0, 5)`
+
+* `pivot = arr[5] = 5`
+* `i = start - 1 = -1`
+* loop `j` from `0` to `4`:
+
+1. `j = 0`: `arr[0] = 10` → `10 < 5`? **No** → no change (`i = -1`).
+
+```
+[10, 7, 8, 9, 1, 5]   (i = -1)
+```
+
+2. `j = 1`: `arr[1] = 7` → `7 < 5`? **No** → no change.
+
+3. `j = 2`: `arr[2] = 8` → **No**.
+
+4. `j = 3`: `arr[3] = 9` → **No**.
+
+5. `j = 4`: `arr[4] = 1` → `1 < 5`? **Yes** → increment `i` to `0`, then
+`swap(arr[i], arr[j])` → `swap(arr[0], arr[4])`:
+
+Before swap:
+
+```
+Index:  0  1  2  3  4  5
+Array: [10, 7, 8, 9, 1, 5]
+```
+
+After swap `swap(0,4)`:
+
+```
+[1, 7, 8, 9, 10, 5]   (i = 0)
+```
+
+* Loop finished. Now swap `arr[i+1]` and `arr[end]` => `swap(arr[1], arr[5])`
+(`swap(7,5)`):
+
+Before final swap of partition:
+
+```
+[1, 7, 8, 9, 10, 5]
+```
+
+After `swap(1,5)`:
+
+```
+[1, 5, 8, 9, 10, 7]
+```
+
+Partition returns pivot index `p = i+1 = 1`.
+
+**Result after Step 1:** Pivot `5` is placed at index `1`. All elements left of
+index `1` are `< 5` (here just `1`), elements right are `>= 5`.
+
+---
+
+## Step 2 — Left recursive call: `quickSort(arr, 0, 0)`
+
+* `start == end` → base case → returns immediately.
+
+---
+
+## Step 3 — Right recursive call: `quickSort(arr, 2, 5)`
+
+Current subarray (indices 2..5):
+
+```
+Index:  2  3  4  5
+Array: [8, 9, 10, 7]   (overall array: [1,5,8,9,10,7])
+```
+
+* `pivot = arr[5] = 7`
+* `i = start - 1 = 1`
+* Loop `j = 2..4`:
+
+  * `j=2`: `8 < 7`? No
+  * `j=3`: `9 < 7`? No
+  * `j=4`: `10 < 7`? No
+* No elements < pivot, so `i` stays `1`.
+* Swap `arr[i+1]` and `arr[end]` → `swap(arr[2], arr[5])` → `swap(8,7)`:
+
+Before swap:
+
+```
+[1, 5, 8, 9, 10, 7]
+```
+
+After swap:
+
+```
+[1, 5, 7, 9, 10, 8]
+```
+
+Partition returns pivot index `p = 2`.
+
+---
+
+## Step 4 — Next recursions
+
+* `quickSort(arr, 2, 1)` → start > end → returns.
+* `quickSort(arr, 3, 5)` → work on `[9, 10, 8]` (indices 3..5)
+
+### Partition on (3..5):
+
+* `pivot = arr[5] = 8`
+* `i = 2`
+* `j = 3`: `9 < 8`? No
+* `j = 4`: `10 < 8`? No
+* Swap `arr[i+1]` with `arr[end]` → `swap(arr[3], arr[5])` → `swap(9,8)`:
+
+Before:
+
+```
+[1,5,7,9,10,8]
+```
+
+After:
+
+```
+[1,5,7,8,10,9]
+```
+
+Partition returns `p = 3`.
+
+* `quickSort(arr, 3, 2)` → returns.
+* `quickSort(arr, 4, 5)` → subarray `[10,9]` (indices 4..5)
+
+### Partition on (4..5):
+
+* `pivot = arr[5] = 9`
+* `i = 3`
+* `j = 4`: `10 < 9`? No
+* Swap `arr[4]` with `arr[5]` → `swap(10,9)`:
+
+Before:
+
+```
+[1,5,7,8,10,9]
+```
+
+After:
+
+```
+[1,5,7,8,9,10]
+```
+
+Partition returns `p = 4`. Remaining recursive calls are base cases and return.
+
+---
+
+## Final sorted array
+
+```
+[1, 5, 7, 8, 9, 10]
+```
+
+---
+
+## Call-stack / Recursion tree (order of calls)
+
+```
+quickSort(0,5)
+├─ partition -> returns p=1
+├─ quickSort(0,0)  // base
+└─ quickSort(2,5)
+   ├─ partition -> returns p=2
+   ├─ quickSort(2,1)  // base
+   └─ quickSort(3,5)
+      ├─ partition -> returns p=3
+      ├─ quickSort(3,2) // base
+      └─ quickSort(4,5)
+         ├─ partition -> returns p=4
+         ├─ quickSort(4,3) // base
+         └─ quickSort(5,5) // base
+```
+
+---
+
+## Where the prints in your program occur (quick map)
+
+* `printArray()` prints the whole array each time it's called (you call it at
+the start of `quicksort`, and after swaps in `partition`).
+* `swap()` prints `in swap` and then the two values being swapped.
+* `partition()` prints when entering, when an `arr[j] < pivot` is true, after
+swaps, and before returning. This is why your program trace shows those
+intermediate arrays and the messages in the order they appear.
+
+---
+
+## Quick tips to *see* this while the program runs
+
+* Add a short pause (e.g., `cin.get()` after each partition) if you want to step
+through output manually.
+* For larger arrays, try printing `start,end,pivot` at the top of `partition()`
+to follow recursion boundaries.
+
+---
+
+If you want, I can also:
+
+* produce a single-page PNG of these diagrams;
+* create an **animated** step-through (GIF) that shows pointer movement; or
+* simplify into a one-page cheat-sheet for exams.
+
+Tell me which (if any) you want next.
+
+*/
