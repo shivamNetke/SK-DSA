@@ -8,7 +8,6 @@ struct node {
     struct node *left;
 };
 
-// Create node using malloc
 struct node *createNode(int data) {
     struct node *newnode = (struct node *)malloc(sizeof(struct node));
     newnode->data = data;
@@ -37,23 +36,21 @@ struct node *insertAtLeft(struct node *head, int data) {
     return newnode;
 }
 
-// Print linked list along right chain
 void printRightList(struct node *head) {
     cout << "Right linked list: ";
     struct node *current = head;
     while (current != NULL) {
-        cout << current->data << " -> ";
+        cout << current->data << " - ";
         current = current->right;
     }
     cout << "NULL" << endl;
 }
 
-// Print linked list
 void printLeftList(struct node *head) {
     cout << "Left linked list: ";
     struct node *current = head;
     while (current != NULL) {
-        cout << current->data << " -> ";
+        cout << current->data << " - ";
         current = current->left;
     }
     cout << "NULL" << endl;
@@ -106,7 +103,7 @@ int main(void) {
 
     cout << "\nTree created successfully!" << endl;
     
-    // printRightList(head);
+    printRightList(head);
     printLeftList(head);
 
     return 0;
